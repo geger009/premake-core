@@ -509,6 +509,7 @@
 			m.useStandardPreprocessor,
 			m.enableModules,
 			m.buildStlModules,
+			m.disabledLanguageExtensions,
 		}
 
 		if cfg.kind == p.STATICLIB then
@@ -671,6 +672,7 @@
 				m.fullProgramDatabaseFile,
 				m.generateDebugInformation,
 				m.optimizeReferences,
+				m.randomizedBaseAddress,
 			}
 		else
 			return {
@@ -691,6 +693,7 @@
 				m.additionalLinkOptions,
 				m.programDatabaseFile,
 				m.assemblyDebug,
+				m.randomizedBaseAddress,
 			}
 		end
 	end
@@ -3615,5 +3618,20 @@
 		if #opts > 0 then
 			opts = table.concat(opts, " ")
 			m.element("AdditionalOptions", condition, '%s %%(AdditionalOptions)', opts)
+		end
+	end
+
+	-- New feature by geger009 | 2024-01-20
+	function m.randomizedBaseAddress(cfg)
+		if cfg.flags.NoRandomizedAddress then
+			m.element("RandomizedBaseAddress", nil, "false")
+		end
+	end
+
+	function m.disabledLanguageExtensions(cfg)
+		if cfg.languageExtension == "On" then
+			m.element("DisableLanguageExtensions", nil, "false")
+		elseif cfg.languageExtension == "Off" then
+			m.element("DisableLanguageExtensions", nil, "true")
 		end
 	end

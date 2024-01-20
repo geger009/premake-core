@@ -538,6 +538,7 @@
 			"C90",                 -- DEPRECATED
 			"C99",                 -- DEPRECATED
 			"C11",                 -- DEPRECATED
+			"NoRandomizedAddress",				-- New feature by geger009 | 2024-01-20
 		},
 		aliases = {
 			FatalWarnings = { "FatalWarnings", "FatalCompileWarnings", "FatalLinkWarnings" },
@@ -1518,6 +1519,18 @@
 		scope = "config",
 		kind = "list:directory",
 		tokens = true,
+	}
+
+	-- New feature by geger009 | 2024-01-20
+	api.register {
+		name = "languageExtension",
+		scope = "config",
+		kind = "string",
+		allowed = {
+			"Default",
+			"On",
+			"Off"
+		}
 	}
 
 	api.deprecateField("sysincludedirs", 'Use `externalincludedirs` instead.',
