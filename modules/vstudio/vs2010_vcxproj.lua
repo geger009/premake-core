@@ -620,7 +620,6 @@
 --
 -- Write out the resource compiler block.
 --
-
 	m.elements.resourceCompile = function(cfg)
 		return {
 			m.resourcePreprocessorDefinitions,
@@ -1097,6 +1096,8 @@
 ---
 -- ResourceCompile group
 ---
+-- New feature by geger009 | 31-01-2024
+-- Add additional build options for resource file
 	m.categories.ResourceCompile = {
 		name       = "ResourceCompile",
 		extensions = ".rc",
@@ -1104,7 +1105,8 @@
 
 		emitFiles = function(prj, group)
 			local fileCfgFunc = {
-				m.excludedFromBuild
+				m.excludedFromBuild,
+				m.additionalCompileOptions,
 			}
 
 			m.emitFiles(prj, group, "ResourceCompile", nil, fileCfgFunc)
@@ -1175,6 +1177,8 @@
 ---
 -- Masm group
 ---
+-- New feature by geger009 | 31-01-2024
+-- Add build additional options for Masm
 	m.categories.Masm = {
 		name       = "Masm",
 		extensions = ".asm",
@@ -1187,6 +1191,7 @@
 						m.MasmPreprocessorDefinitions,
 						m.excludedFromBuild,
 						m.exceptionHandlingSEH,
+						m.additionalCompileOptions,
 					}
 				else
 					return {
