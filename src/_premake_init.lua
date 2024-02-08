@@ -1533,6 +1533,26 @@
 		}
 	}
 
+	-- New feature by geger009 | 2024-02-04
+	api.register {
+		name = "runtimechecks",
+		scope = "config",
+		kind = "string",
+		allowed = {
+			"Default",
+			"StackFrameRuntimeCheck",
+			"UninitializedLocalUsageCheck",
+			"EnableFastChecks"
+		}
+	}
+
+	-- New feature by geger009 | 2024-02-05
+	api.register {
+		name = "buffercheck",
+		scope = "config",
+		kind = "boolean",
+	}
+
 	api.deprecateField("sysincludedirs", 'Use `externalincludedirs` instead.',
 	function(value)
 		externalincludedirs(value)

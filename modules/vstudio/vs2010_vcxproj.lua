@@ -1875,17 +1875,21 @@
 		end
 	end
 
-
+	-- New feature by geger009 | 2024-02-04
 	function m.basicRuntimeChecks(cfg, condition)
 		local prjcfg, filecfg = p.config.normalize(cfg)
 		local runtime = config.getruntime(prjcfg) or iif(config.isDebugBuild(cfg), "Debug", "Release")
 		if filecfg then
-			if filecfg.flags.NoRuntimeChecks or (config.isOptimizedBuild(filecfg) and runtime:endswith("Debug")) then
+			if filecfg.runtimechecks ~= nil then
+				m.element("BasicRuntimeChecks", condition, filecfg.runtimechecks)
+			elseif filecfg.flags.NoRuntimeChecks or (config.isOptimizedBuild(filecfg) and runtime:endswith("Debug")) then
 				m.element("BasicRuntimeChecks", condition, "Default")
 			end
 		else
-			if prjcfg.flags.NoRuntimeChecks or (config.isOptimizedBuild(prjcfg) and runtime:endswith("Debug")) then
-				m.element("BasicRuntimeChecks", nil, "Default")
+			if prjcfg.runtimechecks ~= nil then
+				m.element("BasicRuntimeChecks", condition, prjcfg.runtimechecks)
+			elseif prjcfg.flags.NoRuntimeChecks or (config.isOptimizedBuild(prjcfg) and runtime:endswith("Debug")) then
+				m.element("BasicRuntimeChecks", condition, "Default")
 			end
 		end
 	end
@@ -2987,9 +2991,16 @@
 		end
 	end
 
+	-- New feature by geger009 | 2024-02-04
 	function m.bufferSecurityCheck(cfg)
 		local tool, toolVersion = p.config.toolset(cfg)
-		if cfg.flags.NoBufferSecurityCheck or (toolVersion and toolVersion:startswith("LLVM-vs")) then
+		if cfg.buffercheck ~= nil then
+			if cfg.buffercheck then
+				m.element("BufferSecurityCheck", nil, "true")
+			else
+				m.element("BufferSecurityCheck", nil, "false")
+			end
+		elseif cfg.flags.NoBufferSecurityCheck or (toolVersion and toolVersion:startswith("LLVM-vs")) then
 			m.element("BufferSecurityCheck", nil, "false")
 		end
 	end
