@@ -1553,6 +1553,13 @@
 		kind = "boolean",
 	}
 
+	-- New feature by geger009 | 2024-02-10
+	api.register {
+		name = "minimalrebuild",
+		scope = "config",
+		kind = "boolean",
+	}
+
 	api.deprecateField("sysincludedirs", 'Use `externalincludedirs` instead.',
 	function(value)
 		externalincludedirs(value)

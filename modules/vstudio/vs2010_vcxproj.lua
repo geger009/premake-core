@@ -2601,14 +2601,23 @@
 		end
 	end
 
-
+	-- New feature by geger009 | 2024-02-10
+	-- Add new config for minimal rebuild
 	function m.minimalRebuild(cfg)
-		if config.isOptimizedBuild(cfg) or
-		   cfg.flags.NoMinimalRebuild or
-		   cfg.flags.MultiProcessorCompile or
-		   cfg.debugformat == p.C7
-		then
-			m.element("MinimalRebuild", nil, "false")
+		if cfg.minimalrebuild ~= nil then
+			if (cfg.minimalrebuild) then
+				m.element("MinimalRebuild", nil, "true")
+			else
+				m.element("MinimalRebuild", nil, "false")
+			end
+		else
+			if config.isOptimizedBuild(cfg) or
+			cfg.flags.NoMinimalRebuild or
+			cfg.flags.MultiProcessorCompile or
+			cfg.debugformat == p.C7
+			then
+				m.element("MinimalRebuild", nil, "false")
+			end
 		end
 	end
 
