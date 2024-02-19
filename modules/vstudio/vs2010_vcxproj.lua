@@ -980,6 +980,7 @@
 			m.compileAsWinRT,
 			m.externalWarningLevelFile,
 			m.externalAngleBrackets,
+			m.disabledLanguageExtensions,
 		}
 
 	end
@@ -3653,10 +3654,10 @@
 		end
 	end
 
-	function m.disabledLanguageExtensions(cfg)
-		if cfg.languageExtension == "On" then
-			m.element("DisableLanguageExtensions", nil, "false")
-		elseif cfg.languageExtension == "Off" then
-			m.element("DisableLanguageExtensions", nil, "true")
+	function m.disabledLanguageExtensions(cfg, condition)
+		if cfg.languageextension == "On" then
+			m.element("DisableLanguageExtensions", condition, "false")
+		elseif cfg.languageextension == "Off" then
+			m.element("DisableLanguageExtensions", condition, "true")
 		end
 	end

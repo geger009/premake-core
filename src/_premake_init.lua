@@ -1523,7 +1523,7 @@
 
 	-- New feature by geger009 | 2024-01-20
 	api.register {
-		name = "languageExtension",
+		name = "languageextension",
 		scope = "config",
 		kind = "string",
 		allowed = {
